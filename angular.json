@@ -36,6 +36,14 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
+            },
+            
+            "prerender": {
+              "discoverRoutes": true,
+              "ignore": [
+                "/search/**",
+                "/details/**"
+              ]
             }
           },
           "configurations": {
@@ -74,7 +82,7 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
+        "extract-i1n": {
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
