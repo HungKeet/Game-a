@@ -7,7 +7,8 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 import {
   HTTP_INTERCEPTORS,
@@ -15,6 +16,14 @@ import {
   withInterceptorsFromDi,
   withFetch,
 } from '@angular/common/http';
+
+// --- CÁC THAY ĐỔI MỚI CHO v18+ (SSR) ---
+// 3. Import 'provideSsr' (để sửa lỗi Vercel/Deploy)
+import { provideSsr } from '@angular/ssr';
+// 4. Import file 'serverRoutes' (file app.server.routes.ts của bạn)
+import { serverRoutes } from './app.server.routes';
+// ------------------------------------
+
 import { FormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './interceptors/http-errors.interceptor';
 import { HttpHeadersInterceptor } from './interceptors/http-headers.interceptor';
@@ -22,10 +31,13 @@ import { GaugeModule } from 'angular-gauge';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideSsr({
+      routes: serverRoutes,
+    }),
+
     provideRouter(routes),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(),
+    provideAnimations(),
 
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     importProvidersFrom(FormsModule),
