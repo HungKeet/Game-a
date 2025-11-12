@@ -6,16 +6,13 @@ export const routes: Routes = [
   {
     path: '',
     component: Home,
-    prerender: true
   },
   {
     path: 'search/:game-search',
     component: Home,
-    prerender: false
   },
   {
     path: 'details/:id',
     component: DetailsComponent,
-    prerender: false
   },
 ];
