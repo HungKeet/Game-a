@@ -1,0 +1,43 @@
+<div class="details" *ngIf="gameDetails">
+  <div class="game-banner">
+    <img class="game-banner-img" [src]="gameDetails.background_image" alt="background-img" />
+  </div>
+
+  <div class="game-content">
+    <div class="detail-wrapper">
+      <div class="game-header">
+        <h1 class="game-header-title">{{ gameDetails.name }}</h1>
+        <h2 class="game-header-release-date">
+          Release: {{ gameDetails.released | date : 'mediumDate' }}
+        </h2>
+        <p class="game-header-genres">
+          <span *ngFor="let genre of gameDetails.genres; let last = last">
+            {{ genre.name }}{{ !last ? ', ' : '' }}
+          </span>
+        </p>
+
+        <div class="game-gauge">
+          @if (isBrowser) {
+          <mwl-gauge
+            class="two"
+            [max]="100"
+            [dialStartAngle]="180"
+            [dialEndAngle]="0"
+            [value]="gameRating"
+            [animated]="true"
+            [color]="getColor"
+            [animationDuration]="1.5"
+          >
+          </mwl-gauge>
+          }
+
+          <a class="game-gauge-label" target="_blank" [href]="gameDetails.metacritic_url">
+            Metacritic
+          </a>
+        </div>
+      </div>
+
+      <div class="game-description" [innerHTML]="gameDetails.description"></div>
+    </div>
+  </div>
+</div>

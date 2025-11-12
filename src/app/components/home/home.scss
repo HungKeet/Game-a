@@ -1,0 +1,134 @@
+:host {
+  --primary-dark: #202020;
+  --secondary-dark: #2b2b2b;
+  --text-light: #fff;
+  --accent-shadow: burlywood;
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --primary-blue: blue;
+}
+
+:host {
+  .filters {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding-left: 20px;
+
+    ::ng-deep {
+      .mat-form-field-appearance-fill {
+        .mat-form-field-flex {
+          background-color: var(--primary-blue) !important;
+          border-radius: 5px;
+          padding: 0 10px !important;
+
+          .mat-form-field-underline {
+            display: none !important;
+          }
+
+          .mat-select-value,
+          .mat-select-arrow,
+          .mat-form-field-label {
+            color: var(--text-light) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.games {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 20px auto;
+  gap: 20px;
+
+  .no-games {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-top: 50px;
+  }
+}
+
+.game {
+  width: 280px;
+  height: 330px;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: var(--primary-dark);
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 var(--shadow-dark);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px 0 rgba(248, 241, 241, 0.3);
+  }
+
+  &-thumb-container {
+    background-color: #000;
+    position: relative;
+    height: 172px;
+    color: var(--text-light);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  &-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &-description {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 157px;
+    box-sizing: border-box;
+  }
+
+  &-name {
+    color: var(--text-light);
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &-platforms {
+    display: flex;
+    gap: 8px;
+    .game-platform {
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 30px auto;
+  padding: 0 20px;
+
+  .pagination-page {
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .mat-raised-button {
+    &.mat-button-disabled {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      color: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+}

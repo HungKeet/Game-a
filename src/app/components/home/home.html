@@ -1,0 +1,82 @@
+<div class="filters">
+  <mat-form-field appearance="fill">
+    <mat-label>Sort</mat-label>
+    <mat-select panelClass="sort-select" [(ngModel)]="sort" (selectionChange)="onSortChange()">
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="released">Released</mat-option>
+      <mat-option value="added">Added</mat-option>
+      <mat-option value="created">Created</mat-option>
+      <mat-option value="updated">Updated</mat-option>
+      <mat-option value="rating">Rating</mat-option>
+      <mat-option value="metacritic">Metacritic</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="games">
+  <!-- Vòng lặp @for của bạn -->
+  @for (gameItem of game; track gameItem.id) {
+
+  <!-- 
+      Đây là <div class="game"> 
+      (Mình đã giữ lại (click) của bạn)
+    -->
+  <div class="game" (click)="openGameDetails(gameItem.id)">
+    <!-- === BẮT ĐẦU NỘI DUNG ĐÃ BỊ MẤT === -->
+    <!-- (Mình dán lại nội dung hiển thị vào đây) -->
+
+    <!-- 1. Ảnh thumbnail -->
+    <div class="game-thumb-container">
+      <img
+        class="game-thumbnail"
+        [src]="gameItem.background_image"
+        [alt]="gameItem.name"
+        onerror="this.src='https://placehold.co/280x172/202020/FFF?text=No+Image'"
+      />
+    </div>
+
+    <!-- 2. Tên và Platform -->
+    <div class="game-description">
+      <p class="game-name">{{ gameItem.name }}</p>
+
+      <div class="game-platforms">
+        @for (platformWrapper of gameItem.parent_platforms; track $index) {
+        <img
+          class="game-platform"
+          [src]="getPlatformIcon(platformWrapper.platform.name)"
+          [alt]="platformWrapper.platform.name"
+        />
+        }
+      </div>
+    </div>
+    <!-- === KẾT THÚC NỘI DUNG ĐÃ BỊ MẤT === -->
+  </div>
+  } @empty {
+  <p class="no-games">Loading games or no games found...</p>
+  }
+</div>
+
+<!-- Phần Pagination của bạn (giữ nguyên) -->
+@if (apiResponse) {
+<div class="pagination">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="changePage('prev')"
+    [disabled]="!apiResponse.previous"
+  >
+    &lt; Previous
+  </button>
+
+  <span class="pagination-page">Page {{ page }}</span>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="changePage('next')"
+    [disabled]="!apiResponse.next"
+  >
+    Next &gt;
+  </button>
+</div>
+}
