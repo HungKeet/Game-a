@@ -30,8 +30,7 @@ $breakpoint-mobile: 768px; // Điểm ngắt cho responsive
   background-color: var(--color-dark-gray);
   color: var(--color-white);
   font-family: var(--font-family);
-  overflow: hidden; // Rất quan trọng để bo góc hoạt động
-
+  overflow: hidden;
   // Responsive cho khối .details
   @media (max-width: $breakpoint-mobile) {
     margin: 10px;
